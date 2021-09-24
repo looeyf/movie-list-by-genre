@@ -1,11 +1,19 @@
+import { Button } from "./Button";
+
 interface SideBarProps {
-  children: JSX.Element[] | JSX.Element;
+  genres: Array<{
+    id: number;
+    title: string;
+    name: "action" | "comedy" | "documentary" | "drama" | "horror" | "family";
+  }>;
+  selectedGenreId: number;
+  handleClickButton: (id: number) => void;
 }
 
 import "../styles/sidebar.scss";
 
 export function SideBar(props: SideBarProps) {
-  const { children } = props;
+  const { genres, selectedGenreId, handleClickButton } = props;
 
   return (
     <nav className="sidebar">
@@ -13,7 +21,17 @@ export function SideBar(props: SideBarProps) {
         Watch<p>Me</p>
       </span>
 
-      <div className="buttons-container">{children}</div>
+      <div className="buttons-container">
+        {genres.map((genre) => (
+          <Button
+            key={String(genre.id)}
+            title={genre.title}
+            iconName={genre.name}
+            onClick={() => handleClickButton(genre.id)}
+            selected={selectedGenreId === genre.id}
+          />
+        ))}
+      </div>
     </nav>
   );
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { Button } from "./components/Button";
 import { Content } from "./components/Content";
 import { SideBar } from "./components/SideBar";
 
@@ -55,17 +54,7 @@ export function App() {
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      <SideBar>
-        {genres.map((genre) => (
-          <Button
-            key={String(genre.id)}
-            title={genre.title}
-            iconName={genre.name}
-            onClick={() => handleClickButton(genre.id)}
-            selected={selectedGenreId === genre.id}
-          />
-        ))}
-      </SideBar>
+      <SideBar genres={genres} selectedGenreId={selectedGenreId} handleClickButton={handleClickButton} />
 
       <Content selectedGenre={selectedGenre} movies={movies} />
     </div>
